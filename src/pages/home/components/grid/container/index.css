@@ -1,6 +1,19 @@
 .grid {
 	display: grid;
-	gap: 1px;
+	gap: 2px;
 	border: 1px solid black;
 	width: 100%;
+	aspect-ratio: 1 / 1;
+	height: min-content;
+	margin-inline: auto;
+	transition: filter 0.3s;
+}
+
+.grid.disabled {
+	pointer-events: none;
+	filter: grayscale(0.5);
+}
+
+.grid.disabled .tile {
+	cursor: not-allowed;
 }

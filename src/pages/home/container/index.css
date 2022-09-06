@@ -1,0 +1,13 @@
+.home {
+	padding-inline: 2em;
+	overflow: hidden;
+}
+
+.home-grid-container {
+	display: grid;
+	grid-template-columns: minmax(50vw, 2fr) 1fr;
+	margin-block: 2em;
+	/* padding-inline: 2em; */
+	max-height: 100vh;
+	box-sizing: border-box;
+}

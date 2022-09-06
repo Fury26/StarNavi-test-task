@@ -1,10 +1,13 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { v4 as uuid } from 'uuid';
 import './index.css';
 import Tile from '../tile';
+import { useStore } from 'effector-react';
+import $store from 'store/grid';
+import { setGrid, toggleActive } from 'store/grid/events';
 
 type Props = {
-	rows: number;
+	// rows: number;
 };
 
 type GridTile = {
@@ -12,32 +15,29 @@ type GridTile = {
 	isActive: boolean;
 };
 
-const Grid: React.FC<Props> = ({ rows }) => {
-	const [grid, setGrid] = useState<GridTile[]>([]);
+const Grid: React.FC<Props> = () => {
+	const { rows, grid } = useStore($store);
 
 	useEffect(() => {
-		const arr = [...new Array<GridTile>(rows ** 2)].map(() => ({ isActive: false, id: uuid() }));
-		console.log('arr', arr);
-
+		const newRows = rows || 5;
+		const arr = [...new Array<GridTile>(newRows ** 2)].map(() => ({ isActive: false, id: uuid() }));
 		setGrid(arr);
 	}, [rows]);
 
 	const onActivate = (idx: string) => {
-		setGrid((prev) => prev.map(({ id, isActive }) => (id === idx ? { id, isActive: true } : { id, isActive })));
+		toggleActive(idx);
 	};
 
 	const onDeactivate = (idx: string) => {
-		setGrid((prev) => prev.map(({ id, isActive }) => (id === idx ? { id, isActive: false } : { id, isActive })));
+		toggleActive(idx);
 	};
 
-	const gridTemplateColumns = useMemo(() => `repeat(${rows}, 1fr)`, [rows]);
-
-	console.log('len', grid.length);
+	const gridTemplateColumns = useMemo(() => `repeat(${rows || 5}, auto)`, [rows]);
 
 	return (
-		<div className="grid" style={{ gridTemplateColumns }}>
+		<div className={`grid ${rows ? '' : 'disabled'}`} style={{ gridTemplateColumns }}>
 			{grid.map(({ isActive, id }) => (
-				<Tile key={id} onActivate={() => onActivate(id)} onDeactivate={() => onDeactivate(id)} />
+				<Tile key={id} onActivate={() => onActivate(id)} onDeactivate={() => onDeactivate(id)} isActive={isActive} />
 			))}
 		</div>
 	);

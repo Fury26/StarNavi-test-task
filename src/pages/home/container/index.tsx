@@ -1,11 +1,16 @@
+import Controls from 'pages/home/components/controls/container';
+import HoverLogs from 'pages/home/components/hover-logs/container';
 import React from 'react';
 import Grid from '../components/grid/container';
+import './index.css';
 
 const Home: React.FC = () => {
 	return (
-		<div>
-			<div style={{ width: '50%' }}>
-				<Grid rows={5} />
+		<div className="home">
+			<Controls />
+			<div className="home-grid-container">
+				<Grid />
+				<HoverLogs />
 			</div>
 		</div>
 	);

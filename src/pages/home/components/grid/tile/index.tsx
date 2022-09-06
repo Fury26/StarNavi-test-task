@@ -1,9 +1,10 @@
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import './index.css';
 
 type Props = {
 	onActivate?: () => void;
 	onDeactivate?: () => void;
+	isActive: boolean;
 };
 
 enum POSITIONS {
@@ -14,19 +15,17 @@ enum POSITIONS {
 	LEAVE_DISABLE,
 }
 
-const Tile: React.FC<Props> = () => {
-	const [isActive, setIsActive] = useState<boolean>(false);
-
+const Tile: React.FC<Props> = ({ onActivate = () => {}, onDeactivate = () => {}, isActive }) => {
 	const counter = useRef<number>(POSITIONS.START);
 
 	const onMouseEnter = () => {
 		counter.current += 1;
 		switch (counter.current) {
 			case POSITIONS.ENTER_ACTIVE:
-				setIsActive(true);
+				onActivate();
 				break;
 			case POSITIONS.ENTER_DISABLE: {
-				setIsActive(false);
+				onDeactivate();
 				break;
 			}
 			default:
