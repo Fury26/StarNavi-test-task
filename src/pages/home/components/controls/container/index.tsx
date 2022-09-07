@@ -1,12 +1,11 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import { useStore } from 'effector-react';
-import { useEffect } from 'react';
-import { useState } from 'react';
 import { clearGrid, setRows } from 'store/grid/events';
 import $modesStore from 'store/modes';
 import $gridStore from 'store/grid';
-import './index.css';
 import { getModes } from 'requests/modes';
+import './index.css';
 
 const Controls: React.FC = () => {
 	const { modes } = useStore($modesStore);

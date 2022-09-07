@@ -1,6 +1,6 @@
+import React from 'react';
 import Controls from 'pages/home/components/controls/container';
 import HoverLogs from 'pages/home/components/hover-logs/container';
-import React from 'react';
 import Grid from '../components/grid/container';
 import './index.css';
 
